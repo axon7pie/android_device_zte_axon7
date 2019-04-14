@@ -146,7 +146,7 @@ common_SRC_FILES := \
     toys/pending/lsof.c \
     toys/pending/modprobe.c \
     toys/pending/more.c \
-    toys/pending/setfattr.c \
+    toys/other/setfattr.c \
     toys/pending/tar.c \
     toys/pending/tr.c \
     toys/pending/traceroute.c \

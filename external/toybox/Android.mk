@@ -209,6 +209,8 @@ common_SRC_FILES := \
     toys/posix/uuencode.c \
     toys/posix/wc.c \
     toys/posix/xargs.c \
+    toys/pending/stty.c \
+    toys/pending/fmt.c
 
 common_CFLAGS := \
     -std=gnu11 \

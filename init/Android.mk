@@ -21,6 +21,7 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_C_INCLUDES := \
     system/core/base/include \
     system/core/init
+LOCAL_C_FLAGS += -Wno-enum-conversion -Wno-missing-field-initializers -Wno-incompatible-pointer-types
 LOCAL_SRC_FILES := init_axon7.cpp
 LOCAL_MODULE := libinit_axon7
 

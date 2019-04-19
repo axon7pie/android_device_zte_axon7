@@ -4,7 +4,6 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := libloc_core
 LOCAL_VENDOR_MODULE := true
-LOCAL_MODULE_OWNER := qti
 LOCAL_MODULE_TAGS := optional
 
 ifeq ($(BOARD_VENDOR_QCOM_LOC_PDK_FEATURE_SET),true)
@@ -17,8 +16,7 @@ LOCAL_SHARED_LIBRARIES := \
     libcutils \
     libgps.utils \
     libdl \
-    liblog \
-    libloc_pla
+    liblog
 
 LOCAL_SRC_FILES += \
     LocApiBase.cpp \
@@ -40,6 +38,7 @@ LOCAL_C_INCLUDES:= \
     $(LOCAL_PATH)/observer \
 
 LOCAL_HEADER_LIBRARIES := \
+    libutils_headers \
     libgps.utils_headers \
     libloc_pla_headers \
     liblocation_api_headers

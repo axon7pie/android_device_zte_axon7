@@ -32,6 +32,7 @@
 #include <sys/un.h>
 #include <errno.h>
 #include <ctype.h>
+#include <unistd.h>
 #include <cutils/properties.h>
 #include <math.h>
 #include <arpa/inet.h>
@@ -109,18 +110,6 @@ bool XtraSystemStatusObserver::updateMccMnc(const string& mccmnc) {
     return ( send(LOC_IPC_XTRA, ss.str()) );
 }
 
-bool XtraSystemStatusObserver::updateXtraThrottle(const bool enabled) {
-    mXtraThrottle = enabled;
-
-    if (!mReqStatusReceived) {
-        return true;
-    }
-
-    stringstream ss;
-    ss <<  "xtrathrottle";
-    ss << " " << (enabled ? 1 : 0);
-    return ( send(LOC_IPC_XTRA, ss.str()) );
-}
 
 inline bool XtraSystemStatusObserver::onStatusRequested(int32_t xtraStatusUpdated) {
     mReqStatusReceived = true;
@@ -197,11 +186,11 @@ void XtraSystemStatusObserver::getName(string& name)
 
 void XtraSystemStatusObserver::notify(const list<IDataItemCore*>& dlist)
 {
-    struct HandleOsObserverUpdateMsg : public LocMsg {
+    struct handleOsObserverUpdateMsg : public LocMsg {
         XtraSystemStatusObserver* mXtraSysStatObj;
         list <IDataItemCore*> mDataItemList;
 
-        inline HandleOsObserverUpdateMsg(XtraSystemStatusObserver* xtraSysStatObs,
+        inline handleOsObserverUpdateMsg(XtraSystemStatusObserver* xtraSysStatObs,
                 const list<IDataItemCore*>& dataItemList) :
                 mXtraSysStatObj(xtraSysStatObs) {
             for (auto eachItem : dataItemList) {
@@ -217,7 +206,7 @@ void XtraSystemStatusObserver::notify(const list<IDataItemCore*>& dlist)
             }
         }
 
-        inline ~HandleOsObserverUpdateMsg() {
+        inline ~handleOsObserverUpdateMsg() {
             for (auto each : mDataItemList) {
                 delete each;
             }
@@ -257,5 +246,7 @@ void XtraSystemStatusObserver::notify(const list<IDataItemCore*>& dlist)
             }
         }
     };
-    mMsgTask->sendMsg(new (nothrow) HandleOsObserverUpdateMsg(this, dlist));
+    mMsgTask->sendMsg(new (nothrow) handleOsObserverUpdateMsg(this, dlist));
 }
+
+

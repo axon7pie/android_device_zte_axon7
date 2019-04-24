@@ -251,6 +251,7 @@ TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_NTFS_3G := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_NO_USB_STORAGE := true
+BOARD_DISABLE_BLOCK_BASED_OTA := true
 
 # inherit from the proprietary version
 -include vendor/zte/axon7/BoardConfigVendor.mk
